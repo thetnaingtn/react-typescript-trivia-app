@@ -16,9 +16,11 @@ export default function Question({ question, answerQuestion }: QuestionProps) {
       <h2 dangerouslySetInnerHTML={{ __html: question.question }}></h2>
 
       {answers.map((answer, index) => (
-        <button onClick={() => answerQuestion(answer)} key={index}>
-          {answer}
-        </button>
+        <button
+          dangerouslySetInnerHTML={{ __html: answer }}
+          onClick={() => answerQuestion(answer)}
+          key={index}
+        />
       ))}
     </div>
   );

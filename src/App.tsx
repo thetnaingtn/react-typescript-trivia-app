@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { Question, CategorySelector, Scoreboard } from "./components";
+import {
+  Question,
+  CategorySelector,
+  Scoreboard,
+  ResultModal,
+} from "./components";
 import { Question as QuestionType } from "./question";
 
 import "./App.css";
@@ -11,6 +16,7 @@ function App() {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const getQuestion = useCallback(() => {
+    setIsCorrect(null);
     let url = process.env.REACT_APP_TRIVIA_API_URL;
     if (selectedCategory !== "any") url += `&category=${selectedCategory}`;
     fetch(url as RequestInfo)
@@ -29,6 +35,13 @@ function App() {
 
   return (
     <div className="app">
+      {isCorrect !== null && question && (
+        <ResultModal
+          getQuestion={getQuestion}
+          isCorrect={isCorrect}
+          question={question}
+        />
+      )}
       <div className="question-header">
         <CategorySelector
           category={selectedCategory}
