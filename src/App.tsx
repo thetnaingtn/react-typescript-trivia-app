@@ -8,6 +8,7 @@ import "./App.css";
 function App() {
   const [question, setQuestion] = useState<QuestionType | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("any");
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const getQuestion = useCallback(() => {
     let url = process.env.REACT_APP_TRIVIA_API_URL;
@@ -21,6 +22,11 @@ function App() {
     getQuestion();
   }, [selectedCategory, getQuestion]);
 
+  function handleAnswerQuestion(answer: string) {
+    const isAnswerCorrect = answer === question?.correct_answer;
+    setIsCorrect(isAnswerCorrect);
+  }
+
   return (
     <div className="app">
       <div className="question-header">
@@ -32,7 +38,9 @@ function App() {
       </div>
 
       <div className="question-main">
-        {question && <Question question={question} />}
+        {question && (
+          <Question answerQuestion={handleAnswerQuestion} question={question} />
+        )}
       </div>
 
       <div className="question-footer">

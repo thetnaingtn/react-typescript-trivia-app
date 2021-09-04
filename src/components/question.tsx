@@ -3,9 +3,10 @@ import { Question as QuestionType } from "../question";
 
 type QuestionProps = {
   question: QuestionType;
+  answerQuestion: (answer: string) => void;
 };
 
-export default function Question({ question }: QuestionProps) {
+export default function Question({ question, answerQuestion }: QuestionProps) {
   const answers = _shuffle([
     ...question.incorrect_answers,
     question.correct_answer,
@@ -15,7 +16,9 @@ export default function Question({ question }: QuestionProps) {
       <h2 dangerouslySetInnerHTML={{ __html: question.question }}></h2>
 
       {answers.map((answer, index) => (
-        <button key={index}>{answer}</button>
+        <button onClick={() => answerQuestion(answer)} key={index}>
+          {answer}
+        </button>
       ))}
     </div>
   );
