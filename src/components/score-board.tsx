@@ -1,12 +1,17 @@
-export default function Scoreboard() {
+type ScoreboardProps = {
+  wrong: number;
+  correct: number;
+};
+
+export default function Scoreboard({ wrong, correct }: ScoreboardProps) {
   return (
     <div className="scoreboard">
       <div className="wrong">
-        <strong>0</strong>
+        <strong>{wrong}</strong>
         <span>wrong</span>
       </div>
       <div className="correct">
-        <strong>0</strong>
+        <strong>{correct}</strong>
         <span>correct</span>
       </div>
     </div>
